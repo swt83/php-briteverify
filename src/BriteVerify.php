@@ -12,8 +12,6 @@ class BriteVerify
         // setup curl request
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $endpoint);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_USERPWD, $auth);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
@@ -36,6 +34,16 @@ class BriteVerify
 
         // close
         curl_close($ch);
+
+        // catch error...
+        if (!in_array($httpcode, [200, 201, 202]))
+        {
+            // throw error
+            throw new \Exception(ex($response, 'response.errors.0', 'Request failed with HTTP code '.$httpcode));
+
+            // return false
+            return false;
+        }
 
         // decode response
         return json_decode($response);
