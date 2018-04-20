@@ -1,7 +1,7 @@
 {
     "name": "travis/briteverify",
     "description": "A PHP package for working w/ the BriteVerify API.",
-    "homepage": "",
+    "homepage": "https://github.com/swt83/php-briteverify",
     "license": "MIT",
     "authors": [
         {
