@@ -35,6 +35,16 @@ class BriteVerify
         // close
         curl_close($ch);
 
+        // catch error...
+        if (!in_array($httpcode, [200, 201, 202]))
+        {
+            // throw error
+            throw new \Exception(ex($response, 'response.errors.0', 'Request failed with HTTP code '.$httpcode));
+
+            // return false
+            return false;
+        }
+
         // decode response
         return json_decode($response);
     }
