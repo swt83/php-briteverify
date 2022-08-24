@@ -7,15 +7,26 @@ class BriteVerify
     public static function run($apikey, $email)
     {
         // set endpoint
-        $endpoint = 'https://bpi.briteverify.com/emails.json?address='.$email.'&apikey='.$apikey;
+        $endpoint = 'https://bpi.briteverify.com/api/v1/fullverify';
+
+        $payload = [
+            'email' => $email,
+        ];
+        $payload = json_encode($payload);
 
         // setup curl request
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $endpoint);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: ApiKey: '.$apikey,
+        ]);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         $response = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
