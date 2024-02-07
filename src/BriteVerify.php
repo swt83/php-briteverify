@@ -4,14 +4,11 @@ namespace Travis;
 
 class BriteVerify
 {
-    public static function run($apikey, $email)
+    public static function run($apikey, $payload)
     {
         // set endpoint
         $endpoint = 'https://bpi.briteverify.com/api/v1/fullverify';
 
-        $payload = [
-            'email' => $email,
-        ];
         $payload = json_encode($payload);
 
         // setup curl request

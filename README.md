@@ -1,6 +1,6 @@
 # BriteVerify
 
-A PHP package for working w/ the BriteVerify API.
+A PHP package for working w/ the BriteVerify API.  Note this API can verify emails, phones, and addresses.
 
 ## Install
 
@@ -11,8 +11,15 @@ Normal install via Composer.
 ```php
 use Travis\BriteVerify;
 
-// submit
-$response = BriteVerify::run($apikey, $email);
+// validate email
+$response = BriteVerify::run($apikey, [
+    'email' => $email,
+]);
+
+// validate phone
+$response = BriteVerify::run($apikey, [
+    'phone' => $phone,
+]);
 ```
 
 The response will look like this:
